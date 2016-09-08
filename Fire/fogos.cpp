@@ -13,7 +13,7 @@
 
 using namespace std;
 default_random_engine gerador;
-normal_distribution<double> distribuicao(270,100);
+normal_distribution<double> distribuicao(270,95);
 int janela;
 unsigned nfogos=0;
 struct parts{
@@ -28,8 +28,8 @@ void InitFogos(){
             break;
     //printf("%d\n",i);
     fogos[i].x = rand()%5 -2;
-    fogos[i].y = -1;
-    float v = (float)(rand()%60/1100.0);
+    fogos[i].y = -2;
+    float v = (float)((20+rand()%40)/1000.0);
     int a = rand()%90+45;
     fogos[i].vx = cos(M_PI*a/180)*v;
     fogos[i].vy = sin(M_PI*a/180)*v;
@@ -57,7 +57,7 @@ void Draw(){
     nfogos = 0;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(.0f,.0f,-6.0f);
+    glTranslatef(.0f,.0f,-7.0f);
     glBegin(GL_POINTS);
     glColor3f(1.0,1.0,1.0);
     for(int i=0; i<MAX_FOGOS; i++){
