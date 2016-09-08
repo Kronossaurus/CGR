@@ -8,14 +8,14 @@
 #include <ctime>
 #define MAX_PARTICLES 3500
 #define GRAVITY 0.0003
-#define MAX_FOGOS 5
+#define MAX_FOGOS 50
 
 int janela;
 unsigned nfogos=0;
 struct parts{
     float x,y,vx,vy;
     GLbyte cor[4];
-    unsigned vida=0;
+    unsigned vida=0,wait=0;
 }particle[MAX_FOGOS][MAX_PARTICLES], fogos[MAX_FOGOS];
 void InitFogos(){
     int i;
@@ -29,7 +29,8 @@ void InitFogos(){
     int a = rand()%90+45;
     fogos[i].vx = cos(M_PI*a/180)*v;
     fogos[i].vy = sin(M_PI*a/180)*v;
-    fogos[i].vida = 80+rand()%20;
+    fogos[i].vida = 80+rand()%60;
+    fogos[i].wait = 127;
 }
 void InitParticle(int fogo){
     for(int j=0;j<3;j++)
@@ -66,8 +67,9 @@ void Draw(){
             glVertex3f(fogos[i].x,fogos[i].y,0.0f);
             //printf("C %lf\n",fogos[i].x);
         }
-        else if(fogos[i].vida == 0){
-            InitParticle(i);
+        else if(fogos[i].vida <= 0){
+            if(--fogos[i].wait == 126)
+                InitParticle(i);
         }
     }
     glEnd();
