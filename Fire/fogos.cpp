@@ -6,10 +6,14 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <ctime>
-#define MAX_PARTICLES 3500
+#include <random>
+#define MAX_PARTICLES 1000
 #define GRAVITY 0.0003
-#define MAX_FOGOS 50
+#define MAX_FOGOS 40
 
+using namespace std;
+default_random_engine gerador;
+normal_distribution<double> distribuicao(270,100);
 int janela;
 unsigned nfogos=0;
 struct parts{
@@ -38,9 +42,9 @@ void InitParticle(int fogo){
     particle[fogo][0].cor[3] = 127;
     for(int i=0; i<MAX_PARTICLES; i++){
         float v = (float)(rand()%100/5000.0);
-        int a = rand()%360;
-        particle[fogo][i].vx = cos(M_PI*a/180)*v;
-        particle[fogo][i].vy = sin(M_PI*a/180)*v;
+        int a = distribuicao(gerador);
+        particle[fogo][i].vx = cos(M_PI*a/180)*v+fogos[fogo].vx*0.5;
+        particle[fogo][i].vy = sin(M_PI*a/180)*v+fogos[fogo].vy*0.5;
         particle[fogo][i].x = fogos[fogo].x;
         particle[fogo][i].y = fogos[fogo].y;
         particle[fogo][i].vida = 127;
