@@ -23,9 +23,9 @@ void InitFogos(){
         if(fogos[i].vida<=0)
             break;
     //printf("%d\n",i);
-    fogos[i].x = rand()%2 -1;
+    fogos[i].x = rand()%5 -2;
     fogos[i].y = -1;
-    float v = (float)(rand()%70/1200.0);
+    float v = (float)(rand()%60/1100.0);
     int a = rand()%90+45;
     fogos[i].vx = cos(M_PI*a/180)*v;
     fogos[i].vy = sin(M_PI*a/180)*v;
