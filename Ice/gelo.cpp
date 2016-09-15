@@ -16,7 +16,7 @@ void Draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     glMaterialfv(GL_FRONT, GL_DIFFUSE, corpo);
-    // glColor3f(.7,.7,1.0);
+    //glColor3f(.7,.7,1.0);
     glTranslatef(.0f,-1.0f,-7.0f);
     glutSolidSphere(1.0,50,50);
 
@@ -28,7 +28,7 @@ void Draw(){
 
     glMaterialfv(GL_FRONT, GL_DIFFUSE, nariz);
     glTranslatef(.0f,.0f,.3f);
-    // glColor3f(1.0,.5,.0);
+    //glColor3f(1.0,.5,.0);
     glutSolidCone(.05,.15,20,20);
     glutSwapBuffers();
 }
@@ -67,6 +67,26 @@ void fechar(unsigned char k, int x, int y){
         glutDestroyWindow(janela);
         exit(0);
     }
+	else if(k == 'j'){
+		luz_pos[2] -=.1;
+		glLightfv(GL_LIGHT0, GL_POSITION, luz_pos);
+	}
+	else if(k == 'k'){
+		luz_pos[2] +=.1;
+		glLightfv(GL_LIGHT0, GL_POSITION, luz_pos);
+	}
+}
+
+void specialInput(int k, int x, int y){
+	if(k == GLUT_KEY_UP)
+		luz_pos[1] +=.1;
+	else if(k == GLUT_KEY_DOWN)
+		luz_pos[1] -=.1;
+	else if(k == GLUT_KEY_LEFT)
+		luz_pos[0] -=.1;
+	else if(k == GLUT_KEY_RIGHT)
+		luz_pos[0] +=.1;
+	glLightfv(GL_LIGHT0, GL_POSITION, luz_pos);
 }
 int main(int argc, char **argv){
     srand(time(NULL));
@@ -78,6 +98,7 @@ int main(int argc, char **argv){
     glutDisplayFunc(&Draw);
     glutFullScreen();
     glutIdleFunc(&Draw);
+	glutSpecialFunc(&specialInput);
     glutReshapeFunc(&Resize);
     glutKeyboardFunc(&fechar);
     InitGL(640,480);
