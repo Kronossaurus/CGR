@@ -11,11 +11,12 @@
 using namespace std;
 int janela;
 GLfloat spec[] = {.7, .7, .7, .7}, shin[] = {90.0}, luz_pos[] = {1.0,1.0,1.0,.0};
+GLfloat corpo[] = {.6,.6,1,1},nariz[] = {1,.5,0,1};
 void Draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-
-    glColor3f(.7,.7,1.0);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, corpo);
+    // glColor3f(.7,.7,1.0);
     glTranslatef(.0f,-1.0f,-7.0f);
     glutSolidSphere(1.0,50,50);
 
@@ -25,9 +26,10 @@ void Draw(){
     glTranslatef(.0f,.8f,.0f);
     glutSolidSphere(.3,25,25);
 
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, nariz);
     glTranslatef(.0f,.0f,.3f);
-    glColor3f(1.0,.5,.0);
-    glutSolidCone(.05,.1,20,20);
+    // glColor3f(1.0,.5,.0);
+    glutSolidCone(.05,.15,20,20);
     glutSwapBuffers();
 }
 void Resize(int w, int h){
@@ -47,8 +49,8 @@ void InitGL(int w, int h){
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shin);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, shin);
     glLightfv(GL_LIGHT0, GL_POSITION, luz_pos);
 
     //glEnable(GL_BLEND);
