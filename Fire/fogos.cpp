@@ -81,8 +81,8 @@ void Draw(){
     for(int j=0;j<MAX_FOGOS; j++){
         for(int i=0; i<MAX_PARTICLES; i++){
             if(particle[j][i].vida>0){
-                particle[j][i].x += particle[j][i].vx;
-                particle[j][i].y += particle[j][i].vy;
+                particle[j][i].x += particle[j][i].vx * (rand()%100) / 100;
+                particle[j][i].y += particle[j][i].vy * (rand()%100) / 100;
                 particle[j][i].vy -= GRAVITY;
                 particle[j][i].vida--;
                 glColor4bv(particle[j][0].cor);
